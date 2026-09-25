@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <nav class="navbar bg-dark justify-content-center" data-bs-theme="dark">
+      <a class="navbar-brand" href="#"
+        >Manually building the DOM with createElement is tedious 😭</a
+      >
+    </nav>
+    <div
+      id="card-container"
+      class="row row-cols-1 row-cols-md-3 m-0 justify-content-center"
+    ></div>
+    <script>
+      async function populate() {
+        const container = document.getElementById("card-container");
+        container.innerHTML = `<div class="spinner-border text-primary"></div>`;
+        try {
+          const requestURL = "https://jsonplaceholder.typicode.com/users";
+          const request = new Request(requestURL);
+
+          const response = await fetch(request);
+          const usersData = await response.json();
+          populateCards(usersData);
+        } catch (error) {
+          const container = document.getElementById("card-container");
+          container.innerHTML = "";
+          const body = document.querySelector("body");
+          const err = document.createElement("div");
+          err.textContent = error.message;
+          err.className = "alert alert-danger";
+          body.appendChild(err);
+        }
+      }
+
+      function populateCards(uData) {
+        const container = document.getElementById("card-container");
+
+        container.innerHTML = "";
+        uData.forEach((user) => {
+          //main card
+          const card = document.createElement("div");
+          card.className = "col-lg-3 col-md-5 card m-3  ";
+          //card body
+          const cardBody = document.createElement("div");
+          cardBody.className = "card-body ";
+          //title
+          const title = document.createElement("h5");
+          title.className = "card-title";
+          title.textContent = user.name;
+          //username
+          const subtitle = document.createElement("h6");
+          subtitle.className = "card-subtitle mb-2 text-muted";
+          subtitle.textContent = user.username;
+          //hr
+          const hr = document.createElement("hr");
+          hr.className = "mt-2";
+          //email
+          const emailContainer = document.createElement("div");
+          emailContainer.className = "row";
+          //email-icon
+          const emailIcon = document.createElement("i");
+          emailIcon.className = "bi bi-envelope-fill col-1";
+          //email-info
+          const emailInfo = document.createElement("div");
+          emailInfo.className = "col p-0 ms-2";
+          const emailTitle = document.createElement("p");
+          emailTitle.textContent = "EMAIL";
+          emailTitle.className = "text-muted fw-medium  col m-0";
+          const emailData = document.createElement("h6");
+          emailData.textContent = user.email;
+          emailData.className = "col m-0";
+          //address
+          const addressContainer = document.createElement("div");
+          addressContainer.className = "row  mt-3";
+          //address-header
+          const addressHeader = document.createElement("div");
+          addressHeader.className = "d-flex ";
+          const addressIcon = document.createElement("i");
+          addressIcon.className = "bi bi-geo-alt-fill col-1";
+          const addressTitle = document.createElement("p");
+          addressTitle.textContent = "LOCATION";
+          addressTitle.className = "text-muted fw-medium col ";
+          //address-info
+          const addressInfo = document.createElement("div");
+          addressInfo.className = "row m-0 bg-info-subtle rounded-3";
+          const street = document.createElement("p");
+          street.textContent = `Street: ${user.address.street}`;
+          street.className = "mb-2 ";
+          const suite = document.createElement("p");
+          suite.textContent = `Suite: ${user.address.suite}`;
+          suite.className = "mb-2";
+          const city = document.createElement("p");
+          city.textContent = `City: ${user.address.city}`;
+          city.className = "mb-2";
+          const company = document.createElement("p");
+          company.textContent = `Company: ${user.company.name}`;
+          company.className = "mb-2";
+
+          const phone = document.createElement("p");
+          phone.textContent = `Phone: ${user.phone}`;
+          phone.className = "mb-2";
+          const website = document.createElement("p");
+          website.textContent = `Website: ${user.website}`;
+          website.className = "mb-2";
+
+          //addresInfo-append
+          addressInfo.appendChild(street);
+          addressInfo.appendChild(suite);
+          addressInfo.appendChild(city);
+          addressInfo.appendChild(company);
+          addressInfo.appendChild(phone);
+          addressInfo.appendChild(website);
+          //addressHeader-append
+          addressHeader.appendChild(addressIcon);
+          addressHeader.appendChild(addressTitle);
+          //addressContainer-append
+          addressContainer.appendChild(addressHeader);
+          addressContainer.appendChild(addressInfo);
+          /**************************************************/
+          //emailInfo-append
+          emailInfo.appendChild(emailTitle);
+          emailInfo.appendChild(emailData);
+          //emailContainer-append
+          emailContainer.appendChild(emailIcon);
+          emailContainer.appendChild(emailInfo);
+          /**************************************************/
+          //card-body
+          cardBody.appendChild(title);
+          cardBody.appendChild(subtitle);
+          cardBody.appendChild(hr);
+          cardBody.appendChild(emailContainer);
+          cardBody.appendChild(addressContainer);
+          /**************************************************/
+          card.appendChild(cardBody);
+          container.appendChild(card);
+        });
+      }
+      populate();
+    </script>
+  </body>
+</html>
