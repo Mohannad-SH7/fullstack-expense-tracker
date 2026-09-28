@@ -191,7 +191,7 @@ async function populateTableBody() {
     });
 
     renderEmptyState(filteredExpenses.length === 0);
-    renderSummary(expenses);
+    renderSummary(filteredExpenses);
   } catch (error) {
     container.innerHTML = "";
     container.appendChild(
