@@ -1,13 +1,10 @@
 # Expense Tracker
 
-<!-- Write 1-2 sentences: what does your app do? -->
+Expense Tracker is a full-stack web application for recording and managing personal
+expenses. The frontend provides a responsive dashboard connected to an Express and
+PostgreSQL backend.
 
 ## How to run
-
-<!-- Write the exact steps someone needs to run your project from scratch.
-     Assume they have Node.js, PostgreSQL, and VS Code, and nothing else.
-     Include: creating the database, running schema.sql, writing the .env file,
-     starting the backend, and opening the frontend. -->
 
 **Backend**
 
@@ -57,23 +54,49 @@
 
 **Frontend**
 
-1. ...
+1. Make sure the backend is running at `http://localhost:3000`.
+2. Open the `frontend` folder in VS Code.
+3. Open `frontend/index.html` with the VS Code Live Server extension, or open the
+   file directly in a browser.
+4. The dashboard loads the expenses from the API and displays the total number of
+   expenses, total amount, and highest expense.
+5. Use **+ Add Expense** to open the form. Enter a title, positive amount, category,
+   and date, then submit the form. The frontend sends the data to the API and
+   refreshes the table with the saved expense.
+6. Use the **Edit** button to update an expense or **Delete** to remove one. The
+   table refreshes after each successful request so it always matches the database.
+7. Use the category filter to display all expenses or only expenses in a selected
+   category. If a request fails, the page displays an error alert.
+
+The frontend is built with HTML, CSS, Bootstrap, and vanilla JavaScript. Expense
+rows, category badges, summary values, loading states, and empty states are created
+and updated with the DOM. Bootstrap is loaded from a CDN, so an internet connection
+is needed when opening the page.
 
 ## Features
 
-<!-- List what your app can do. Tick what you finished. -->
-
-- [ ] Add an expense (with validation)
-- [ ] Delete an expense
-- [ ] Edit an expense
-- [ ] Filter by category
-- [ ] Summary cards (total, count, highest)
-- [ ] Data is saved in a PostgreSQL database
-
-## Screenshots
-
-<!-- Add 2-3 screenshots of your app (desktop and mobile). -->
+- [x] Add an expense (with validation)
+- [x] Delete an expense
+- [x] Edit an expense
+- [x] Filter by category
+- [x] Summary cards (total, count, highest)
+- [x] Data is saved in a PostgreSQL database
 
 ## What was the hardest part?
 
-<!-- A short paragraph: what got you stuck, and how did you solve it? -->
+There was no particularly hard part because everything worked well overall. However,
+manually building the DOM with `createElement` was tedious and made the work slower.
+
+## Screenshots
+
+### Dashboard overview
+
+![Expense Tracker dashboard overview](frontend/Frontend%20Images/overview.png)
+
+### Add expenses
+
+![Add expense form](frontend/Frontend%20Images/add-expenses.png)
+
+### Filter expenses
+
+![Filtered expenses](frontend/Frontend%20Images/filter-expenses.png)
